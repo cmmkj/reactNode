@@ -6,6 +6,11 @@ const http = require('http');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const modelIndex = require('./models/index');
+
+mongoose.Promise = require('bluebird');
+mongoose.connect('mongodb://localhost:27017/reactNode');
+
 
 let routes = require('./routes/index');
 
@@ -15,7 +20,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use('/', routes);
+
+app.use((req, res, next) => {
+  req.getModel = (modelName) => {
+    return modelIndex[modelName];
+  }
+  next();
+})
+
+require('./routes/index')(app);
 
 app.use((req, res, next) => {
   let err = new Error('Not Found');
@@ -34,3 +47,4 @@ app.use((err, req, res, next) => {
 app.listen(3000, err => {
   console.log("server start successful,listen 3000");
 })
+

@@ -1,9 +1,12 @@
-const express = require('express');
-let router = express.Router();
+const Article = require('./controllers/article');
+const Init = require('./controllers/init');
+const User = require('./controllers/user');
 
-router.get('/', (req, res, next) => {
-  //res.send("11111111111111111111111111111");
-  res.render('index.html');
-});
+module.exports = (app) => {
 
-module.exports = router;
+  app.use('/init', Init);
+  app.use('/article', Article);
+  app.use('/user', User); //用户管理
+}
+
+
