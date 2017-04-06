@@ -11,7 +11,7 @@ class Notes_loginUser extends React.Component{
       name: this.refs.name.value,
       passwd: this.refs.passwd.value
     };
-    this.refs.loginUser_form.reset();
+    this.props.onUserLoginForm();
     this.props.onLoginUser(userData);
   }
   render() {

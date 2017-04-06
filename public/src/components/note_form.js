@@ -6,14 +6,16 @@ import {Input, Button} from 'antd';
 class Notes_form extends React.Component{
   handleSubmit(event) {
     event.preventDefault();
+    let now = new Date();
     if(this.refs.title.value == '') return ;
     let newNote = {
       title: this.refs.title.value,
-      description: this.refs.description.value,
-      date: 'posted @' + new Date()
+      content: this.refs.content.value,
+      date: now.getFullYear() + '-' + (now.getMonth()+1)+ '-' + now.getDate()+ " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds(),
+      authorid: this.props.userid
     };
-    this.refs.yout_form.reset();
-    this.props.onNewNote(newNote);
+    this.props.onToggleForm();
+    this.props.onNewNote(newNote, this.props.token);
   }
 
   render() {
@@ -25,7 +27,7 @@ class Notes_form extends React.Component{
         <form ref="yout_form" action="#" className="note_form" style={ style } onSubmit={ this.handleSubmit.bind(this) }>
           <h5>笔记</h5>
           <input ref="title" type="text" className="your_title" placeholder="你的笔记标题" />
-          <textarea ref="description" className="your_description" placeholder="笔记内容"/>
+          <textarea ref="content" className="your_content" placeholder="笔记内容"/>
           <Button className="cancel_btn" onClick={ this.props.onToggleForm }>取消</Button>
           <input type="submit" value="确认" className="confirm_btn"/>
         </form>

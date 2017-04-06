@@ -5,7 +5,8 @@ import {createStore, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { Provider } from 'react-redux';
-import Notes from './container/app.js'
+//import Notes from './container/app.js'
+import Routes from './routes/index'
 import rootReducer from './reducer/reducer.js';
 
 let loggerMiddleware = createLogger();
@@ -19,5 +20,5 @@ let unsubscribe = store.subscribe(() => console.log(store.getState()));
 
 ReactDOM.render(
     <Provider store = { store }>
-      <Notes/>
+      { Routes }
     </Provider>, document.getElementById('app'));

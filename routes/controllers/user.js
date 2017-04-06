@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const _ = require('lodash');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('../../config');
 const SALT = 10;
@@ -37,7 +37,7 @@ router.post('/createUser', (req, res, next) => {
   });
 });
 
-router.post('/loginUser', (req, res, next) => {
+router.post('/login', (req, res, next) => {
   let {body: {name, passwd}, getModel} = req; 
   let User = getModel('user');
   return User.findOne({name}).then(doc => {
@@ -47,6 +47,7 @@ router.post('/loginUser', (req, res, next) => {
         if(err) return reject(err);
         if(!match) return reject('密码错误');
         res.json({
+          userid: doc._id,
           token: createToken(doc)
         })
       });

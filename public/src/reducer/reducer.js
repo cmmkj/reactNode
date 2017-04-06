@@ -2,7 +2,7 @@
 
 import { combineReducers } from 'redux';
 import { INIT_NOTES, ADD_NOTE, DELETE_NOTE } from '../action/article.js';
-import { CREATE_USER, LOGIN_USER } from '../action/user.js'
+import { CREATE_USER, LOGIN_USER, LOGOUT_USER } from '../action/user.js'
 
 //处理笔记初始化，添加和删除请求
 function notes(state = [], action) {
@@ -28,16 +28,18 @@ function createUser(state = false, action){
   }
 }
 
-function loginUser(state = null, action) {
+function loginOrOut(state = null, action) {
   switch(action.type) {
     case LOGIN_USER: 
-      return action.token;
+      return action.loginInfo;
+    case LOGOUT_USER:
+      return action.loginInfo
     default:
       return state;
   }
 }
 
-const rootReducer = combineReducers({notes, isCreated: createUser, token: loginUser});
-export default rootReducer;
 
+const rootReducer = combineReducers({notes, isCreated: createUser, loginInfo: loginOrOut});
+export default rootReducer;
 

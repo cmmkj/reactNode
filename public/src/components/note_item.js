@@ -1,28 +1,23 @@
 'use strict'
 import React, { PropTypes } from 'react';
 import { Button } from 'antd';
+import { Link } from 'react-router';
 class Notes_item extends React.Component{
-  handleOver() {
-    this.refs.delete.style.display = 'block';
-  }
-
-  handleOut() {
-    this.refs.delete.style.display="none";
-  }
-
-  handleDelete() {
-    let date = this.props.date;
-    this.props.onDeleteNote(date);
-  }
 
   render() {
+    let date = this.props.date;
+    let postDate = 'posted @' + date;
+    //date = new Date(date);
+    //let postDate = 'posted @' + date.getFullYear() + '-' + (date.getMonth()+1)+ '-' + date.getDate()+ " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds();
     return (
       <div>
-        <div className="notes_item" onMouseOver={ this.handleOver.bind(this)} onMouseOut={ this.handleOut.bind(this) }>
-          <h4>{ this.props.title }</h4>
-          <p>{ this.props.description }</p>
-          <input  className="delete" ref="delete" type="button" onClick={this.handleDelete.bind(this)} value="删除"/>
-          <span className="date">{ this.props.date }</span>
+        <div className="notes_item" >
+          <h4><Link to={{pathname:'/article/' + this.props.noteid,state: {note: this.props, onDeleteNote: this.props.onDeleteNote}}}>{ this.props.title }</Link></h4>
+          <p>{ this.props.content }</p>
+          <span className="tag">
+            <span className="tag-left">{ postDate }</span>
+            <span className="tag-right">浏览({ this.props.pv }){' '}留言({ 0 })</span> 
+          </span>
         </div>
       </div>
     );
@@ -31,7 +26,7 @@ class Notes_item extends React.Component{
 
 Notes_item.propTypes = {
   title : PropTypes.string.isRequired,
-  description : PropTypes.string.isRequired,
+  content : PropTypes.string.isRequired,
   date : PropTypes.string.isRequired,
   onDeleteNote : PropTypes.func.isRequired
 }

@@ -3,7 +3,7 @@ import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 import { initNotes, addNote, deleteNote } from '../action/article.js';
-import { createUser, loginUser} from '../action/user.js'
+import { createUser, login, logout} from '../action/user.js'
 import Notes_header from '../components/note_header.js';
 import Notes_form from '../components/note_form.js';
 import Notes_list from '../components/note_list.js';
@@ -16,7 +16,7 @@ class Notes extends React.Component{
     this.state = {
       formDisplayed: false,
       formUserCreateDisplayed: false,
-      formUserLoginDisplayed: false
+      formUserLoginDisplayed: false,
     };
   }
 
@@ -30,27 +30,29 @@ class Notes extends React.Component{
     });
   }
 
-  onNewNote(newNote) {
-    this.props.dispatch(addNote(newNote));
+  onNewNote(newNote, token) {
+    this.props.dispatch(addNote(newNote, token));
   }
     
-  onDeleteNote(datet) {
+  onDeleteNote(date, token) {
     /*根据日期来删除笔记*/
     let delete_date = {
-      date: datet
+      date: date
     };
-    this.props.dispatch(deleteNote(delete_date));
+    this.props.dispatch(deleteNote(delete_date, token));
   }
   
   onUserCreateForm() {
     this.setState({
-      formUserCreateDisplayed: !this.state.formUserCreateDisplayed
+      formUserCreateDisplayed: !this.state.formUserCreateDisplayed,
+      formUserLoginDisplayed: false
     });
   }
   
   onUserLoginForm() {
     this.setState({
-      formUserLoginDisplayed: !this.state.formUserLoginDisplayed
+      formUserLoginDisplayed: !this.state.formUserLoginDisplayed,
+      formUserCreateDisplayed: false
     });
     console.log(this.state.formUserLoginDisplayed);
   }
@@ -60,16 +62,25 @@ class Notes extends React.Component{
   }
   
   onLoginUser(userData) {
-    this.props.dispatch(loginUser(userData));
+    this.props.dispatch(login(userData));
   }
-
+  
+  onLogoutUser() {
+    this.setState({
+      formDisplayed: false
+    });
+    this.props.dispatch(logout()); 
+  }
+  
   render() {
-    const { notes ,isCreated, token} = this.props;
+    const { notes ,isCreated, loginInfo} = this.props;
+    const {token, isLogin, userid} = loginInfo ? loginInfo : {};
     return (
       <div className="container">
-        <Notes_header onToggleForm={ this.onToggleForm.bind(this) } onUserCreateForm={ this.onUserCreateForm.bind(this) } onUserLoginForm={ this.onUserLoginForm.bind(this) }/>
+        <Notes_header isLogin={ isLogin } onToggleForm={ this.onToggleForm.bind(this) } onUserCreateForm={ this.onUserCreateForm.bind(this) } onUserLoginForm={ this.onUserLoginForm.bind(this) }
+          onLogoutUser={ this.onLogoutUser.bind(this) }/>
         <div className="container_main">
-          <Notes_form onToggleForm={ this.onToggleForm.bind(this) }
+          <Notes_form token={ token } onToggleForm={ this.onToggleForm.bind(this) } userid={ userid }
             formDisplayed={ this.state.formDisplayed } onNewNote={ this.onNewNote.bind(this) }/>
           <Notes_createUser isCreated={ isCreated } onUserCreateForm={ this.onUserCreateForm.bind(this) } 
             formUserCreateDisplayed={ this.state.formUserCreateDisplayed } 
@@ -77,7 +88,7 @@ class Notes extends React.Component{
           <Notes_loginUser onUserLoginForm={ this.onUserLoginForm.bind(this) } 
             formUserLoginDisplayed={ this.state.formUserLoginDisplayed }
             onLoginUser={ this.onLoginUser.bind(this) }/>
-          <Notes_list notes={ notes } onDeleteNote={ this.onDeleteNote.bind(this) }/>
+          <Notes_list notes={ notes } token={ token } isLogin={ isLogin } userid={userid} onDeleteNote={ this.onDeleteNote.bind(this) }/>
         </div>
       </div>
     );
@@ -88,7 +99,7 @@ Notes.propTypes = {
   notes: PropTypes.arrayOf(
     PropTypes.shape({
       title: PropTypes.string.isRequired,
-      description: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired,
       date: PropTypes.string.isRequired
     }).isRequired       
   ).isRequired   
@@ -97,7 +108,7 @@ function select(state) {
   return {
     notes: state.notes,
     isCreated: state.isCreated,
-    token: state.token
+    loginInfo: state.loginInfo
   };
 }
 

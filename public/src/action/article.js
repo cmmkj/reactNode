@@ -7,6 +7,7 @@ export const INIT_NOTES = 'INIT_NOTES';
 export const ADD_NOTE = 'ADD_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 
+
 //action创建函数
 //异步action会被redus-thunk中间件拦截,传入dispatch,getState等参数后执行
 export function initNotes() {
@@ -27,7 +28,7 @@ export function initNotes() {
   }
 }
 
-export function addNote(newNote) {
+export function addNote(newNote, token) {
   return function(dispatch, getState) {
     $.ajax({
       url: '/article/addNote',
@@ -42,6 +43,9 @@ export function addNote(newNote) {
         notes = notesSort(notes);
         dispatch({type: ADD_NOTE, notes: notes});
       }.bind(this),
+      beforeSend: function (xhr) {    //添加Authorization
+        xhr.setRequestHeader ('Authorization', 'Bearer ' + token); 
+      },
       error: function() {
         console.log('笔记添加失败啦～');
       }.bind(this)
@@ -49,7 +53,7 @@ export function addNote(newNote) {
   } 
 }
 
-export function deleteNote(delete_date) {
+export function deleteNote(delete_date, token) {
   return function(dispatch, getState) {
     $.ajax({
       url: '/article/deleteNote',
@@ -63,6 +67,9 @@ export function deleteNote(delete_date) {
         notes = notesSort(notes);
         dispatch({type: DELETE_NOTE, notes: notes});
       }.bind(this),
+      beforeSend: function (xhr) {    //添加Authorization
+        xhr.setRequestHeader ('Authorization', 'Bearer ' + token); 
+      },
       error: function(){
         console.log('笔记删除失败~');
       }.bind(this)
