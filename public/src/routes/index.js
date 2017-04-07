@@ -1,11 +1,13 @@
 import React from 'react'
 import App from '../container/app';
 import Article from '../modules/article';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
+import Notes_list from '../components/note_list';
+
 
 const Routes = (
-  <Router history={ browserHistory }>
-    <Route path="/" component={ App } />
+  <Router>
+    <Route path="/" component={ App }/>
     <Route path="/article/:noteid" component={ Article } />
   </Router>
 );

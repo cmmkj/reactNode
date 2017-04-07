@@ -7,12 +7,18 @@ class Notes_form extends React.Component{
   handleSubmit(event) {
     event.preventDefault();
     let now = new Date();
+    let month = (now.getMonth()+1) >= 10 ? (now.getMonth()+1) : '0' + (now.getMonth()+1);
+    let hour = now.getHours() >= 10 ? now.getHours() : '0' + now.getHours();
+    let day = now.getDate() >= 10 ? now.getDate() : '0' + now.getDate();
+    let min = now.getMinutes() >= 10 ? now.getMinutes() : '0' + now.getMinutes();
+    let sec = now.getSeconds() >=10 ? now.getSeconds() : '0' + now.getSeconds();
     if(this.refs.title.value == '') return ;
     let newNote = {
       title: this.refs.title.value,
       content: this.refs.content.value,
-      date: now.getFullYear() + '-' + (now.getMonth()+1)+ '-' + now.getDate()+ " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds(),
-      authorid: this.props.userid
+      date: now.getFullYear() + '-' + month + '-' + day + " " + hour + ":" + min + ":" + sec,
+      authorid: this.props.userid,
+      author: this.props.username
     };
     this.props.onToggleForm();
     this.props.onNewNote(newNote, this.props.token);

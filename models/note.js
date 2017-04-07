@@ -7,7 +7,8 @@ let noteSchema = new Schema({
   content: {type:String, required: true},
   date: {type: String, required: true},
   pv: {type: Number},
-  authorid: Schema.Types.ObjectId
+  authorid: Schema.Types.ObjectId,
+  author:{type: String}
 });
 
 let Note = mongoose.model('note', noteSchema);

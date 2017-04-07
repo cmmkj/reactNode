@@ -28,6 +28,8 @@ export function initNotes() {
   }
 }
 
+
+
 export function addNote(newNote, token) {
   return function(dispatch, getState) {
     $.ajax({

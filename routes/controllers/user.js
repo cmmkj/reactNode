@@ -47,7 +47,8 @@ router.post('/login', (req, res, next) => {
         if(err) return reject(err);
         if(!match) return reject('密码错误');
         res.json({
-          userid: doc._id,
+          userid: doc._id, 
+          username: doc.name,
           token: createToken(doc)
         })
       });

@@ -17,6 +17,8 @@ class Notes extends React.Component{
       formDisplayed: false,
       formUserCreateDisplayed: false,
       formUserLoginDisplayed: false,
+      isClickTitle: false,
+      note: null
     };
   }
 
@@ -40,6 +42,9 @@ class Notes extends React.Component{
       date: date
     };
     this.props.dispatch(deleteNote(delete_date, token));
+    this.setState({
+      isClickTitle: false
+    });
   }
   
   onUserCreateForm() {
@@ -57,6 +62,18 @@ class Notes extends React.Component{
     console.log(this.state.formUserLoginDisplayed);
   }
 
+  onIsClickTitle() {
+    this.setState({
+      isClickTitle: true
+    });
+  }
+  
+  onNote(note) {
+    this.setState({
+      note: note
+    });
+  }
+
   onCreateUser(newUser) {
     this.props.dispatch(createUser(newUser));
   }
@@ -67,20 +84,21 @@ class Notes extends React.Component{
   
   onLogoutUser() {
     this.setState({
-      formDisplayed: false
+      formDisplayed: false,
+      isClickTitle: false
     });
     this.props.dispatch(logout()); 
   }
   
   render() {
     const { notes ,isCreated, loginInfo} = this.props;
-    const {token, isLogin, userid} = loginInfo ? loginInfo : {};
+    const {token, isLogin, userid, username} = loginInfo ? loginInfo : {};
     return (
       <div className="container">
         <Notes_header isLogin={ isLogin } onToggleForm={ this.onToggleForm.bind(this) } onUserCreateForm={ this.onUserCreateForm.bind(this) } onUserLoginForm={ this.onUserLoginForm.bind(this) }
           onLogoutUser={ this.onLogoutUser.bind(this) }/>
         <div className="container_main">
-          <Notes_form token={ token } onToggleForm={ this.onToggleForm.bind(this) } userid={ userid }
+          <Notes_form token={ token } onToggleForm={ this.onToggleForm.bind(this) } userid={ userid } username={ username }
             formDisplayed={ this.state.formDisplayed } onNewNote={ this.onNewNote.bind(this) }/>
           <Notes_createUser isCreated={ isCreated } onUserCreateForm={ this.onUserCreateForm.bind(this) } 
             formUserCreateDisplayed={ this.state.formUserCreateDisplayed } 
@@ -88,7 +106,8 @@ class Notes extends React.Component{
           <Notes_loginUser onUserLoginForm={ this.onUserLoginForm.bind(this) } 
             formUserLoginDisplayed={ this.state.formUserLoginDisplayed }
             onLoginUser={ this.onLoginUser.bind(this) }/>
-          <Notes_list notes={ notes } token={ token } isLogin={ isLogin } userid={userid} onDeleteNote={ this.onDeleteNote.bind(this) }/>
+          <Notes_list isClickTitle={this.state.isClickTitle} onIsClickTitle={ this.onIsClickTitle.bind(this) } notes={ notes } note={ this.state.note } onNote={this.onNote.bind(this)}
+            token={ token } isLogin={ isLogin } userid={ userid } onDeleteNote={ this.onDeleteNote.bind(this) }/>
         </div>
       </div>
     );
