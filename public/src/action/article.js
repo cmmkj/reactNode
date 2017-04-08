@@ -6,6 +6,7 @@ import $ from '../jquery.min.js';
 export const INIT_NOTES = 'INIT_NOTES';
 export const ADD_NOTE = 'ADD_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
+export const FIND_ONE = 'FIND_ONE';
 
 
 //action创建函数
@@ -74,6 +75,26 @@ export function deleteNote(delete_date, token) {
       },
       error: function(){
         console.log('笔记删除失败~');
+      }.bind(this)
+    });
+  }
+}
+
+export function findOneNote(noteid) {
+  return function(dispatch, getState) {
+    $.ajax({
+      url: '/article/' + noteid,
+      type: 'get',
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json',
+      cache: false,
+      success: function(note) {
+        console.log('找到对应的note');
+        console.log(note);
+        dispatch({type: FIND_ONE, note: note.note});
+      }.bind(this),
+      error: function(){
+        console.log('查找失败~');
       }.bind(this)
     });
   }

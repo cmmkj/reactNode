@@ -1,7 +1,7 @@
 'use strict'
 
 import { combineReducers } from 'redux';
-import { INIT_NOTES, ADD_NOTE, DELETE_NOTE } from '../action/article.js';
+import { INIT_NOTES, ADD_NOTE, DELETE_NOTE, FIND_ONE } from '../action/article.js';
 import { CREATE_USER, LOGIN_USER, LOGOUT_USER } from '../action/user.js'
 
 //处理笔记初始化，添加和删除请求
@@ -39,7 +39,20 @@ function loginOrOut(state = null, action) {
   }
 }
 
+function findOneNote(state = null, action) {
+  switch(action.type) {
+    case FIND_ONE:
+      return action.note;
+    default:
+      return state;
+  }
+}
 
-const rootReducer = combineReducers({notes, isCreated: createUser, loginInfo: loginOrOut});
+const rootReducer = combineReducers({
+  notes, 
+  isCreated: createUser, 
+  loginInfo: loginOrOut,
+  note: findOneNote
+});
 export default rootReducer;
 

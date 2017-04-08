@@ -1,7 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const jwt = require('express-jwt');
+const config = require('../../config');
 
-router.post('/addNote', (req, res, next) => {
+let jwtCheck = jwt({
+  secret: config.jwt.secret
+});
+
+router.post('/addNote', jwtCheck, (req, res, next) => {
   let newNote = req.body;
   let Note = req.getModel('note');
   newNote.date = newNote.date || new Date();
@@ -14,7 +20,7 @@ router.post('/addNote', (req, res, next) => {
   })
 })
 
-router.delete('/deleteNote', (req, res, next) => {
+router.delete('/deleteNote', jwtCheck, (req, res, next) => {
   let date = req.body.date;
   let Note = req.getModel('note');
   Note.deleteOne({date: date}).then(() => {
@@ -23,6 +29,18 @@ router.delete('/deleteNote', (req, res, next) => {
       res.json(notes);
     });
   })
+})
+
+router.get('/:noteid', (req, res, next) => {
+  let noteid = req.params.noteid;
+  let Note = req.getModel('note');
+  Note.findById(noteid).then(doc => {
+    console.log('使用id查找成功');
+    console.log(doc);
+    res.json({
+      note:doc
+    });
+  });
 })
 
 module.exports = router;
