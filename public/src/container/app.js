@@ -2,9 +2,9 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { initNotes, addNote, deleteNote } from '../action/article.js';
+import { initNotes, addNote, deleteNote } from '../action/note.js';
 import { createUser, login, logout} from '../action/user.js'
-import Notes_header from '../components/note_header.js';
+import Notes_header from '../components/index.js';
 import Notes_form from '../components/note_form.js';
 import Notes_list from '../components/note_list.js';
 import Notes_createUser  from '../components/note_createUser.js';

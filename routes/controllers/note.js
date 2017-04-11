@@ -12,8 +12,6 @@ router.post('/addNote', jwtCheck, (req, res, next) => {
   let Note = req.getModel('note');
   newNote.date = newNote.date || new Date();
   Note.create(newNote).then(doc => {
-    console.log('笔记已经成功写入数据库！！');
-    console.log(doc);
     Note.find({}).exec().then(notes => {
       res.json(notes);
     })
@@ -41,6 +39,15 @@ router.get('/:noteid', (req, res, next) => {
       note:doc
     });
   });
+})
+
+router.get('/user/notes', jwtCheck, (req, res, next) => {
+  let userid = req.query.userid;
+  let Note = req.getModel('note');
+  console.log(userid)
+  Note.find({authorid: userid}).then(notes => {
+    res.json(notes)
+  })
 })
 
 module.exports = router;

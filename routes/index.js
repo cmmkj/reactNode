@@ -1,4 +1,4 @@
-const Article = require('./controllers/article');
+const Note = require('./controllers/note');
 const Init = require('./controllers/init');
 const User = require('./controllers/user');
 const config = require('../config');
@@ -7,7 +7,7 @@ const config = require('../config');
 
 module.exports = (app) => {
   app.use('/init', Init);
-  app.use('/article', Article);
+  app.use('/note', Note);
   app.use('/user', User); //用户管理
 }
 

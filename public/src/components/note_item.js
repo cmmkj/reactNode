@@ -12,7 +12,7 @@ class Notes_item extends React.Component{
     return (
       <div>
         <div className="notes_item" >
-          <h4><Link to={ 'article/' + this.props.note._id }>{ this.props.note.title }</Link></h4>
+          <h4><Link to={ '/note/' + this.props.note._id }>{ this.props.note.title }</Link></h4>
           <p>{ this.props.note.content.substr(0,50) + '...' }</p>
           <span className="tag">
             <span>{ '作者:' + this.props.note.author }&nbsp;&nbsp;</span>

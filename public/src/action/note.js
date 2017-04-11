@@ -7,7 +7,7 @@ export const INIT_NOTES = 'INIT_NOTES';
 export const ADD_NOTE = 'ADD_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const FIND_ONE = 'FIND_ONE';
-
+export const USER_INIT_NOTES = 'USER_INIT_NOTES'
 
 //action创建函数
 //异步action会被redus-thunk中间件拦截,传入dispatch,getState等参数后执行
@@ -29,12 +29,35 @@ export function initNotes() {
   }
 }
 
-
+export function findUserNotes(userid, token) {
+  console.log(',,,,,,,,,,,,,,,,,,,,,,,,,');
+  console.log(userid)
+  return function(dispatch, getState) {
+    $.ajax({
+      url: '/note/user/notes?userid=' + userid,
+      type: 'get',
+      dataType: 'json',
+      cache: false,
+      success: function(notes) {
+        notes = notesSort(notes);
+        console.log('notes获取成功')
+        console.log(notes)
+        dispatch({type: USER_INIT_NOTES, userNotes: notes});
+      }.bind(this),
+      beforeSend: function (xhr) {    //添加Authorization
+        xhr.setRequestHeader ('Authorization', 'Bearer ' + token); 
+      },
+      error: function() {
+        console.log('notes获取失败');
+      }.bind(this)
+    });
+  }
+}
 
 export function addNote(newNote, token) {
   return function(dispatch, getState) {
     $.ajax({
-      url: '/article/addNote',
+      url: '/note/addNote',
       type: 'post',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
@@ -59,7 +82,7 @@ export function addNote(newNote, token) {
 export function deleteNote(delete_date, token) {
   return function(dispatch, getState) {
     $.ajax({
-      url: '/article/deleteNote',
+      url: '/note/deleteNote',
       type: 'delete',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
@@ -83,7 +106,7 @@ export function deleteNote(delete_date, token) {
 export function findOneNote(noteid) {
   return function(dispatch, getState) {
     $.ajax({
-      url: '/article/' + noteid,
+      url: '/note/' + noteid,
       type: 'get',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
