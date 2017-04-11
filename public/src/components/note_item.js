@@ -4,10 +4,7 @@ import { Button } from 'antd';
 import { Link } from 'react-router';
 class Notes_item extends React.Component{
   //<h4><Link to={{pathname:'/article/' + this.props.noteid,state: {note: this.props}}}>{ this.props.title }</Link></h4>
-  handleTitle() {
-    this.props.onIsClickTitle();
-    this.props.onNote(this.props.note); 
-  }
+          //<h4 onClick={ this.handleTitle.bind(this) }>{ this.props.note.title }</h4>
 
   render() {
     let date = this.props.note.date;
@@ -15,7 +12,7 @@ class Notes_item extends React.Component{
     return (
       <div>
         <div className="notes_item" >
-          <h4 onClick={ this.handleTitle.bind(this) }>{ this.props.note.title }</h4>
+          <h4><Link to={ '/note/' + this.props.note._id }>{ this.props.note.title }</Link></h4>
           <p>{ this.props.note.content.substr(0,50) + '...' }</p>
           <span className="tag">
             <span>{ '作者:' + this.props.note.author }&nbsp;&nbsp;</span>

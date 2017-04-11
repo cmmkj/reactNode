@@ -2,9 +2,9 @@
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
-import { initNotes, addNote, deleteNote } from '../action/article.js';
+import { initNotes, addNote, deleteNote } from '../action/note.js';
 import { createUser, login, logout} from '../action/user.js'
-import Notes_header from '../components/note_header.js';
+import Notes_header from '../components/index.js';
 import Notes_form from '../components/note_form.js';
 import Notes_list from '../components/note_list.js';
 import Notes_createUser  from '../components/note_createUser.js';
@@ -17,8 +17,7 @@ class Notes extends React.Component{
       formDisplayed: false,
       formUserCreateDisplayed: false,
       formUserLoginDisplayed: false,
-      isClickTitle: false,
-      note: null
+      isClickTitle: false
     };
   }
 
@@ -68,11 +67,6 @@ class Notes extends React.Component{
     });
   }
   
-  onNote(note) {
-    this.setState({
-      note: note
-    });
-  }
 
   onCreateUser(newUser) {
     this.props.dispatch(createUser(newUser));
@@ -106,7 +100,7 @@ class Notes extends React.Component{
           <Notes_loginUser onUserLoginForm={ this.onUserLoginForm.bind(this) } 
             formUserLoginDisplayed={ this.state.formUserLoginDisplayed }
             onLoginUser={ this.onLoginUser.bind(this) }/>
-          <Notes_list isClickTitle={this.state.isClickTitle} onIsClickTitle={ this.onIsClickTitle.bind(this) } notes={ notes } note={ this.state.note } onNote={this.onNote.bind(this)}
+          <Notes_list isClickTitle={this.state.isClickTitle} onIsClickTitle={ this.onIsClickTitle.bind(this) } notes={ notes } 
             token={ token } isLogin={ isLogin } userid={ userid } onDeleteNote={ this.onDeleteNote.bind(this) }/>
         </div>
       </div>
