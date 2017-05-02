@@ -12,6 +12,7 @@ mongoose.Promise = require('bluebird');
 mongoose.connect('mongodb://localhost:27017/reactNode');
 
 
+
 let routes = require('./routes/index');
 
 let app = express();

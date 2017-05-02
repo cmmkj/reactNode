@@ -7,6 +7,7 @@ import createLogger from 'redux-logger';
 import { Provider } from 'react-redux';
 import { Router, Route, IndexRoute, Link, IndexLink, browserHistory, hashHistory, match } from 'react-router'
 //import Notes from './container/app.js'
+import { ReduxAsyncConnect } from 'redux-async-connect'
 import Routes from './routes/index'
 import rootReducer from './reducer/reducer.js';
 
@@ -22,7 +23,7 @@ let unsubscribe = store.subscribe(() => console.log(store.getState()));
 
 ReactDOM.render(
     <Provider store = { store }>
-      <Router history={ browserHistory }>
+      <Router history={ browserHistory } >
         { Routes }
       </Router>
     </Provider>, document.getElementById('app'));
