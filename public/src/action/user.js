@@ -9,7 +9,7 @@ export const LOGOUT_USER = 'LOGOUT_USER';
 export function createUser(newUser) {
   return function(dispatch, getState) {
     $.ajax({
-      url: '/user/createUser',
+      url: '/v1/user/createUser',
       type: 'post',
       contentType: 'application/json; charsetrset=utf-8',
       dataType: 'json',
@@ -30,7 +30,7 @@ export function createUser(newUser) {
 export function login(data) {
   return function(dispatch, getState) {
     $.ajax({
-      url: '/user/login',
+      url: '/v1/user/login',
       type: 'post',
       contentType: 'application/json; charsetrset=utf-8',
       dataType: 'json',

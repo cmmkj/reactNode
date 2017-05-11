@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "http://localhost:3000/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = 396);
@@ -3310,7 +3310,7 @@ function findUserNotes(userid, token) {
   console.log(userid);
   return function (dispatch, getState) {
     _jqueryMin2.default.ajax({
-      url: '/note/user/notes?userid=' + userid,
+      url: '/v1/note/user/notes?userid=' + userid,
       type: 'get',
       dataType: 'json',
       cache: false,
@@ -3334,7 +3334,7 @@ function findUserNotes(userid, token) {
 function addNote(newNote, token) {
   return function (dispatch, getState) {
     _jqueryMin2.default.ajax({
-      url: '/note/addNote',
+      url: '/v1/note/addNote',
       type: 'post',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
@@ -3360,7 +3360,7 @@ function addNote(newNote, token) {
 function deleteNote(delete_date, token) {
   return function (dispatch, getState) {
     _jqueryMin2.default.ajax({
-      url: '/note/deleteNote',
+      url: '/v1/note/deleteNote',
       type: 'delete',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
@@ -3385,7 +3385,7 @@ function deleteNote(delete_date, token) {
 function findOneNote(noteid) {
   return function (dispatch, getState) {
     _jqueryMin2.default.ajax({
-      url: '/note/' + noteid,
+      url: '/v1/note/' + noteid,
       type: 'get',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
@@ -6075,7 +6075,7 @@ var LOGOUT_USER = exports.LOGOUT_USER = 'LOGOUT_USER';
 function createUser(newUser) {
   return function (dispatch, getState) {
     _jqueryMin2.default.ajax({
-      url: '/user/createUser',
+      url: '/v1/user/createUser',
       type: 'post',
       contentType: 'application/json; charsetrset=utf-8',
       dataType: 'json',
@@ -6096,7 +6096,7 @@ function createUser(newUser) {
 function login(data) {
   return function (dispatch, getState) {
     _jqueryMin2.default.ajax({
-      url: '/user/login',
+      url: '/v1/user/login',
       type: 'post',
       contentType: 'application/json; charsetrset=utf-8',
       dataType: 'json',

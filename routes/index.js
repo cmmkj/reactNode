@@ -7,8 +7,8 @@ const config = require('../config');
 
 module.exports = (app) => {
   app.use('/init', Init);
-  app.use('/note', Note);
-  app.use('/user', User); //用户管理
+  app.use('/v1/note', Note);
+  app.use('/v1/user', User); //用户管理
 }
 
 

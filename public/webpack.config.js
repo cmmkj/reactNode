@@ -1,10 +1,13 @@
+const htmlWebpackPlugin = require('html-webpack-plugin')
+const path = require('path')
 module.exports = {
   entry: [
     './src/entry.js'
   ],
   output: {
-    path: './out/',
-    filename: 'bundle.js'
+    path: path.resolve(__dirname, 'out'),
+    filename: 'bundle.js',
+    publicPath: 'http://localhost:3000/'
   },
   module: {
     loaders: [
@@ -13,7 +16,14 @@ module.exports = {
       { test: /\.styl$/, loader: "style-loader!css-loader!stylus-loader"},
       { test: /\.(png|jpg)$/, loader: 'url?limit=8192'}
     ]
-  }
+  },
+  plugins: [
+    new htmlWebpackPlugin({
+      filename: 'index.html',
+      template: 'index.html',
+      inject: 'body'
+    })
+  ]
 }
 
 

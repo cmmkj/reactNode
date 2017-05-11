@@ -34,7 +34,7 @@ export function findUserNotes(userid, token) {
   console.log(userid)
   return function(dispatch, getState) {
     $.ajax({
-      url: '/note/user/notes?userid=' + userid,
+      url: '/v1/note/user/notes?userid=' + userid,
       type: 'get',
       dataType: 'json',
       cache: false,
@@ -57,7 +57,7 @@ export function findUserNotes(userid, token) {
 export function addNote(newNote, token) {
   return function(dispatch, getState) {
     $.ajax({
-      url: '/note/addNote',
+      url: '/v1/note/addNote',
       type: 'post',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
@@ -82,7 +82,7 @@ export function addNote(newNote, token) {
 export function deleteNote(delete_date, token) {
   return function(dispatch, getState) {
     $.ajax({
-      url: '/note/deleteNote',
+      url: '/v1/note/deleteNote',
       type: 'delete',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
@@ -106,7 +106,7 @@ export function deleteNote(delete_date, token) {
 export function findOneNote(noteid) {
   return function(dispatch, getState) {
     $.ajax({
-      url: '/note/' + noteid,
+      url: '/v1/note/' + noteid,
       type: 'get',
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
