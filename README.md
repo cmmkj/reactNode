@@ -1,9 +1,21 @@
-# reactNode
-
-public文件夹为前端代码
-
-运行: 
-  1.cd public 
-  2.webpack
-  3. ../
-  4.node index
+# react+express构建博客系统
+<div>
+  <h3>描述</h3>
+  <p>兼顾见后端练手项目，适合初学者</p>
+  <h3>主要技术栈</h3>
+  <ul>
+    <li>nodejs</li>
+    <li>react</li>
+    <li>redux</li>
+    <li>react-router</li>
+    <li>express</li>
+    <li>mongodb</li>
+  </ul>
+  <h3>运行</h3>
+  <p>1. git clone https://github.com/cashyu/reactNode.git</p>
+  <p>2. cd reactNode/client/</p>
+  <p>3. npm run build</p>
+  <p>4. cd ../server</p>
+  <p>5. node inde.js</p>
+  <p>6. 打开浏览器，访问http://localhost:3000</p>
+</div> 

@@ -20,7 +20,7 @@ let app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public/out')));
+app.use(express.static(path.join(__dirname, '../client/out')));
 
 
 app.use((req, res, next) => {
@@ -34,7 +34,7 @@ require('./routes/index')(app);
 
 app.get('*', function (req, res) {
   console.log('cccccccccccccccccccccccccccccccc')
-  res.sendFile(path.resolve(__dirname, 'public/out', 'index.html'))
+  res.sendFile(path.resolve(__dirname, '../client/out', 'index.html'))
 })
 app.use((req, res, next) => {
   let err = new Error('Not Found');

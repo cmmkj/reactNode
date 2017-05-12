@@ -22,7 +22,7 @@ let store = createStoreWithMiddleware(rootReducer);
 let unsubscribe = store.subscribe(() => console.log(store.getState()));
 
 ReactDOM.render(
-    <Provider store = { store }>
+    <Provider store = { store } >
       <Router history={ browserHistory } >
         { Routes }
       </Router>

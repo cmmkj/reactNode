@@ -40,6 +40,9 @@ export function login(data) {
         console.log('登录成功');
         result.isLogin = true;
         dispatch({type: LOGIN_USER, loginInfo: result});
+        /** 前端保存用户信息***/
+        localStorage.setItem('userInfo', JSON.stringify(result))
+        /**********************/
       }.bind(this),
       error: function() {
         console.log('登录失败');
@@ -55,5 +58,6 @@ export function logout(){
       isLogin: false
     };
     dispatch({type: LOGOUT_USER, loginInfo: result});
+    localStorage.clear()    // 清除localstorage
   }
 } 

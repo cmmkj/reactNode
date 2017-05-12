@@ -48,7 +48,8 @@ class Index extends React.Component{
   }
 
   render() {
-    let { isLogin } = this.props.loginInfo ? this.props.loginInfo : {}
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'))
+    let { isLogin } = this.props.loginInfo ? this.props.loginInfo : userInfo ? userInfo : {}
     let style = {
       display: isLogin ? 'block' : 'none'
     };

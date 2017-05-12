@@ -1,11 +1,16 @@
 {
-  "name": "react-node",
+  "name": "client",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "webpack.config.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "NODE_ENV=production webpack --progress --colors --config webpack.config.js"
   },
+  "keywords": [
+    "react",
+    "redux",
+    "react-router"
+  ],
   "author": "along",
   "license": "ISC",
   "devDependencies": {
@@ -27,17 +32,6 @@
   },
   "dependencies": {
     "antd": "^2.8.3",
-    "bcrypt": "^1.0.2",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.17.1",
-    "cookie-parser": "^1.4.3",
-    "debug": "~2.2.0",
-    "express": "^4.15.2",
-    "express-jwt": "^5.1.0",
-    "jsonwebtoken": "^7.3.0",
-    "lodash": "^4.17.4",
-    "mongoose": "^4.9.2",
-    "morgan": "^1.8.1",
     "react": "^0.14.6",
     "react-addons-css-transition-group": "^15.3.1",
     "react-dom": "^0.14.6",
@@ -46,7 +40,6 @@
     "redux": "^3.5.2",
     "redux-async-connect": "^1.0.0-rc4",
     "redux-logger": "^2.6.1",
-    "redux-thunk": "^2.1.0",
-    "serve-favicon": "~2.3.0"
+    "redux-thunk": "^2.1.0"
   }
 }

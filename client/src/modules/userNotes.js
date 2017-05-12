@@ -12,7 +12,8 @@ class UserNotes extends React.Component{
   }
 
   componentDidMount() {
-    this.props.dispatch(findUserNotes(this.props.loginInfo.userid, this.props.loginInfo.token));
+    const userInfo = this.props.loginInfo ? this.props.loginInfo : JSON.parse(localStorage.getItem('userInfo'))
+    this.props.dispatch(findUserNotes(userInfo.userid, userInfo.token));
   }
   render() {
     let notes = this.props.userNotes
