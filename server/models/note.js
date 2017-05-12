@@ -11,7 +11,11 @@ let noteSchema = new Schema({
   author:{type: String}
 });
 
-let Note = mongoose.model('note', noteSchema);
+let Note = mongoose.model('Note', noteSchema);
+
+Note.incPv = function (noteid) {
+  return Note.updateOne({_id: noteid}, {$inc: {pv: 1}})
+}
 
 module.exports = Note;
 

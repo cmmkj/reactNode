@@ -10,7 +10,7 @@ let userSchema = new Schema({
   picture: {type: String}
 });
 
-let User = mongoose.model('user', userSchema);
+let User = mongoose.model('User', userSchema);
 
 module.exports = User;
 

@@ -21,19 +21,27 @@ class CreateNote extends React.Component{
     let min = now.getMinutes() >= 10 ? now.getMinutes() : '0' + now.getMinutes();
     let sec = now.getSeconds() >=10 ? now.getSeconds() : '0' + now.getSeconds();
     if(this.refs.title.value == '') return ;
+    const userInfo = this.props.loginInfo ? this.props.loginInfo : JSON.parse(localStorage.getItem('userInfo'))
     let newNote = {
       title: this.refs.title.value,
       content: this.refs.content.value,
       date: now.getFullYear() + '-' + month + '-' + day + " " + hour + ":" + min + ":" + sec,
-      authorid: this.props.loginInfo.userid,
-      author: this.props.loginInfo.username
+      authorid: userInfo.userid,
+      author: userInfo.username
     };
     const path = '/user/notes'
     this.refs.yout_form.reset()
-    this.props.actions.addNote(newNote, this.props.loginInfo.token)
+    this.props.actions.addNote(newNote, userInfo.token)
     browserHistory.push(path);
   }
   
+  cancelHandleSubmit (event) {
+    event.preventDefault()
+    const path = '/user/notes'
+    this.refs.yout_form.reset()
+    browserHistory.push(path);
+  }
+
   render() {
  
     return (
@@ -41,7 +49,7 @@ class CreateNote extends React.Component{
         <h5>编辑文章</h5>
         <input ref="title" type="text" className="your_title" placeholder="文章标题" />
         <textarea ref="content" className="your_content" placeholder="文章内容"/>
-        <Button className="cancel_btn" onClick={ this.props.onToggleForm }>取消</Button>
+        <Button className="cancel_btn" onClick={ this.cancelHandleSubmit.bind(this) }>取消</Button>
         <input type="submit" value="确认" className="confirm_btn"/>
       </form>
     )

@@ -1,54 +1,43 @@
-const express = require('express');
-const router = express.Router();
-const jwt = require('express-jwt');
-const config = require('../../config');
 
-let jwtCheck = jwt({
-  secret: config.jwt.secret
-});
-
-router.post('/addNote', jwtCheck, (req, res, next) => {
+exports.addNote = function (req, res, next){
   let newNote = req.body;
   let Note = req.getModel('note');
   newNote.date = newNote.date || new Date();
   Note.create(newNote).then(doc => {
-    Note.find({}).exec().then(notes => {
-      res.json(notes);
-    })
+    res.json();
   })
-})
+}
 
-router.delete('/deleteNote', jwtCheck, (req, res, next) => {
-  let date = req.body.date;
+exports.deleteNote = (req, res, next) => {
+  let noteid = req.body.noteid;
   let Note = req.getModel('note');
-  Note.deleteOne({date: date}).then(() => {
-    console.log('笔记已经删除');
-    Note.find({}, (err, notes) => {
+  let userid = req.body.userid
+  Note.deleteOne({_id: noteid}).then(() => {
+    console.log('已经删除');
+    Note.find({authorid: userid}, (err, notes) => {
       res.json(notes);
     });
   })
-})
+}
 
-router.get('/:noteid', (req, res, next) => {
+exports.getNote = (req, res, next) => {
   let noteid = req.params.noteid;
   let Note = req.getModel('note');
-  Note.findById(noteid).then(doc => {
+  return Note.findById(noteid).then(doc => {
     console.log('使用id查找成功');
-    console.log(doc);
-    res.json({
-      note:doc
-    });
+    return Note.incPv(noteid).then(() => {
+      res.json({
+        note:doc
+      });
+    })
   });
-})
+}
 
-router.get('/user/notes', jwtCheck, (req, res, next) => {
+exports.userNotes = (req, res, next) => {
   let userid = req.query.userid;
   let Note = req.getModel('note');
-  console.log(userid)
+  console.log('用户主页显示')
   Note.find({authorid: userid}).then(notes => {
     res.json(notes)
   })
-})
-
-module.exports = router;
-
+}

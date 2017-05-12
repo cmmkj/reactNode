@@ -2,13 +2,24 @@
 import React, { PropTypes } from 'react';
 import { Button } from 'antd';
 import { Link } from 'react-router';
+import * as actions from '../action/note'
+
 class Notes_item extends React.Component{
-  //<h4><Link to={{pathname:'/article/' + this.props.noteid,state: {note: this.props}}}>{ this.props.title }</Link></h4>
-          //<h4 onClick={ this.handleTitle.bind(this) }>{ this.props.note.title }</h4>
+
+  onDeleteNote (event) {
+    event.preventDefault()
+    this.props.onDeleteNote(this.props.note._id)
+  }
 
   render() {
     let date = this.props.note.date;
     let postDate = 'posted @' + date;
+    let deleteChoice 
+    if (this.props.note.isLogin) {
+      deleteChoice = (
+        <span className="deleteNote" onClick={ this.onDeleteNote.bind(this) }> 删除 </span>
+      )
+    }
     return (
       <div>
         <div className="notes_item" >
@@ -17,7 +28,8 @@ class Notes_item extends React.Component{
           <span className="tag">
             <span>{ '作者:' + this.props.note.author }&nbsp;&nbsp;</span>
             <span className="tag-left">{ postDate }</span>
-            <span className="tag-right">浏览({ this.props.note.__v }){' '}留言({ 0 })</span> 
+            <span className="tag-right">浏览({ this.props.note.pv || 0 }){' '}留言({ 0 })</span> 
+            { deleteChoice }
           </span>
         </div>
       </div>
@@ -26,3 +38,4 @@ class Notes_item extends React.Component{
 }
 
 export default Notes_item;
+//export default connect(mapStateToProps, mapDispatchToProps)(Notes_item)

@@ -1,8 +1,8 @@
 import React from 'react'
-import Note from '../modules/note';
 import { Router, Route, IndexRoute } from 'react-router';
 import Notes_list from '../components/note_list';
 import Index from '../components/index';
+import Note from '../modules/note';
 import createNote from '../modules/createNote'
 import userNotes from '../modules/userNotes'
 import About from '../modules/about'

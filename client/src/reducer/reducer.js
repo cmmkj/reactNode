@@ -19,8 +19,6 @@ function userNotes(state = [], action) {
   switch(action.type) {
     case USER_INIT_NOTES:
       return [...action.userNotes];
-    case ADD_NOTE:
-      return [...action.userNotes];
     case DELETE_NOTE:
       return [...action.userNotes];
     default:

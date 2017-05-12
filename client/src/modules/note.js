@@ -26,7 +26,7 @@ class Notecomponent extends React.Component{
         <span className="article-tag">
           <span>{'作者:' + note.author }&nbsp;&nbsp;</span>
           <span className="tag-left">{ 'posted @' + note.date }</span>
-          <span className="tag-right">浏览({ note.__v }){' '}留言({ 0 })</span> 
+          <span className="tag-right">浏览({ note.pv || 0 }){' '}留言({ 0 })</span> 
           {tagMessage}
         </span>
         </div>
@@ -40,7 +40,9 @@ class Notecomponent extends React.Component{
   }
 };
 const mapStateToProps=(state)=>{
-  return {note:state.note}
+  return {
+    note:state.note
+  }
 }
 const Note = connect(
   mapStateToProps    

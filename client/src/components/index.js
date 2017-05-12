@@ -6,8 +6,8 @@ import { Link, IndexLink, browserHistory} from 'react-router';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux';
 import Notes_list from "../components/note_list"
-import SignForm from '../modules/signup'
-import LoginForm from '../modules/login'
+import SignForm from '../components/signup'
+import LoginForm from '../components/login'
 import * as actions from '../action/user'
 
 class Index extends React.Component{
@@ -63,7 +63,7 @@ class Index extends React.Component{
       <div className="main"> 
         <div className="header">
           <div className="header_main">
-            <h2>NodeJs 博客</h2>
+            <h2>大于博客</h2>
             <Button className="add_user_btn" style={ unstyle } 
               onClick={ this.onUserCreateForm.bind(this) }>注册
             </Button>

@@ -1,5 +1,3 @@
-const express = require('express');
-const router = express.Router();
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
@@ -22,7 +20,7 @@ function hashPwd(passwd) {
   });
 }
 
-router.post('/createUser', (req, res, next) => {
+exports.createUser = (req, res, next) => {
   let newUser = req.body;
   newUser = _.pick(newUser, ['name','phonenum', 'picture', 'passwd', 'created']);
   let User = req.getModel('user');
@@ -35,9 +33,9 @@ router.post('/createUser', (req, res, next) => {
       res.json('注册成功')
     })
   });
-});
+}
 
-router.post('/login', (req, res, next) => {
+exports.login = (req, res, next) => {
   let {body: {name, passwd}, getModel} = req; 
   let User = getModel('user');
   return User.findOne({name}).then(doc => {
@@ -54,7 +52,4 @@ router.post('/login', (req, res, next) => {
       });
     });
   })
-})
-
-
-module.exports = router;
+}

@@ -30,8 +30,6 @@ export function initNotes() {
 }
 
 export function findUserNotes(userid, token) {
-  console.log(',,,,,,,,,,,,,,,,,,,,,,,,,');
-  console.log(userid)
   return function(dispatch, getState) {
     $.ajax({
       url: '/v1/note/user/notes?userid=' + userid,
@@ -66,8 +64,6 @@ export function addNote(newNote, token) {
       cache: false,
       success: function(notes) {
         console.log('笔记添加成功!');
-        notes = notesSort(notes);
-        dispatch({type: ADD_NOTE, notes: notes});
       }.bind(this),
       beforeSend: function (xhr) {    //添加Authorization
         xhr.setRequestHeader ('Authorization', 'Bearer ' + token); 
@@ -91,7 +87,7 @@ export function deleteNote(delete_date, token) {
       success: function(notes) {
         console.log('笔记已经被删除!');
         notes = notesSort(notes);
-        dispatch({type: DELETE_NOTE, notes: notes});
+        dispatch({type: DELETE_NOTE, userNotes: notes});
       }.bind(this),
       beforeSend: function (xhr) {    //添加Authorization
         xhr.setRequestHeader ('Authorization', 'Bearer ' + token); 
