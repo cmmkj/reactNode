@@ -33,7 +33,6 @@ app.use((req, res, next) => {
 require('./routes/index')(app);
 
 app.get('*', function (req, res) {
-  console.log('cccccccccccccccccccccccccccccccc')
   res.sendFile(path.resolve(__dirname, '../client/out', 'index.html'))
 })
 app.use((req, res, next) => {

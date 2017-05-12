@@ -4,10 +4,10 @@ const ObjectId = Schema.Types.ObjectId
 
 let commentSchema = new Schema({
   noteid: {type: ObjectId, ref: 'Note'},
-  form: {type: ObjectId, ref: 'User'},
+  formUserid: {type: ObjectId, ref: 'User'},
   reply: [{
-    from: {type: ObjectId, ref: 'User'},
-    to: {type: ObjectId, ref: 'User'},
+    fromUserid: {type: ObjectId, ref: 'User'},
+    toUserid: {type: ObjectId, ref: 'User'},
     content: String
   }],
   content: String,

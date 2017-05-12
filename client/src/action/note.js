@@ -107,10 +107,12 @@ export function findOneNote(noteid) {
       contentType: 'application/json; charset=utf-8',
       dataType: 'json',
       cache: false,
-      success: function(note) {
+      success: function(result) {
         console.log('找到对应的note');
-        console.log(note);
-        dispatch({type: FIND_ONE, note: note.note});
+        console.log(result);
+        let note = result.note
+        note.comments = result.comments
+        dispatch({type: FIND_ONE, note: note});
       }.bind(this),
       error: function(){
         console.log('查找失败~');

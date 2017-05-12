@@ -20,15 +20,21 @@ class Notecomponent extends React.Component{
     let message
     if(note) {
       message = (
-        <div className="article_main">
-        <h4>{ note.title }</h4>
-        <pre>{ note.content }</pre>
-        <span className="article-tag">
-          <span>{'作者:' + note.author }&nbsp;&nbsp;</span>
-          <span className="tag-left">{ 'posted @' + note.date }</span>
-          <span className="tag-right">浏览({ note.pv || 0 }){' '}留言({ 0 })</span> 
-          {tagMessage}
-        </span>
+        <div>
+          <div className="article_main">
+            <h4>{ note.title }</h4>
+            <pre>{ note.content }</pre>
+            <span className="article-tag">
+              <span>{'作者:' + note.author }&nbsp;&nbsp;</span>
+              <span className="tag-left">{ 'posted @' + note.date }</span>
+              <span className="tag-right">浏览({ note.pv || 0 }){' '}留言({ 0 })</span> 
+              {tagMessage}
+            </span>
+          </div>
+          <hr/>
+          <div className="note_comment">
+            
+          </div>
         </div>
       )
     }

@@ -21,7 +21,9 @@ module.exports = (app) => {
   // user
   app.post('/v1/user/createUser', User.createUser)
   app.post('/v1/user/login', User.login)
-//  app.use('/v1/user/comment', Comment)
+  
+  // comment
+  app.use('/v1/user/comment', jwtCheck, Comment.createComment)
 }
 
 

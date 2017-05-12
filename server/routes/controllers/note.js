@@ -1,4 +1,3 @@
-
 exports.addNote = function (req, res, next){
   let newNote = req.body;
   let Note = req.getModel('note');
@@ -26,9 +25,17 @@ exports.getNote = (req, res, next) => {
   return Note.findById(noteid).then(doc => {
     console.log('使用id查找成功');
     return Note.incPv(noteid).then(() => {
-      res.json({
-        note:doc
-      });
+      let Comment = req.getModel('comment')
+      return Comment.find({noteid})
+        .populate('from', 'name')
+        .populate('reply.from reply.to', 'name')
+        .exec()
+        .then(comments => {
+          res.json({
+            note:doc,
+            comments
+          });
+        })
     })
   });
 }
