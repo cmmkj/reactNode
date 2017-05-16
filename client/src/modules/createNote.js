@@ -34,7 +34,7 @@ class CreateNote extends React.Component{
     this.props.actions.addNote(newNote, userInfo.token)
     browserHistory.push(path);
   }
-  
+ 
   cancelHandleSubmit (event) {
     event.preventDefault()
     const path = '/user/notes'

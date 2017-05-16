@@ -25,17 +25,7 @@ exports.getNote = (req, res, next) => {
   return Note.findById(noteid).then(doc => {
     console.log('使用id查找成功');
     return Note.incPv(noteid).then(() => {
-      let Comment = req.getModel('comment')
-      return Comment.find({noteid})
-        .populate('from', 'name')
-        .populate('reply.from reply.to', 'name')
-        .exec()
-        .then(comments => {
-          res.json({
-            note:doc,
-            comments
-          });
-        })
+      res.json({note: doc})
     })
   });
 }
@@ -48,3 +38,4 @@ exports.userNotes = (req, res, next) => {
     res.json(notes)
   })
 }
+

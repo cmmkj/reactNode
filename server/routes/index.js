@@ -23,7 +23,8 @@ module.exports = (app) => {
   app.post('/v1/user/login', User.login)
   
   // comment
-  app.use('/v1/user/comment', jwtCheck, Comment.createComment)
+  app.post('/v1/user/comment', jwtCheck, Comment.createComment)
+  app.get('/v1/note/comments/:noteid', Comment.findNoteComments)
 }
 
 

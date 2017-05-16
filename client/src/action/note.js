@@ -111,7 +111,6 @@ export function findOneNote(noteid) {
         console.log('找到对应的note');
         console.log(result);
         let note = result.note
-        note.comments = result.comments
         dispatch({type: FIND_ONE, note: note});
       }.bind(this),
       error: function(){

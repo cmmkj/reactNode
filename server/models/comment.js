@@ -4,7 +4,7 @@ const ObjectId = Schema.Types.ObjectId
 
 let commentSchema = new Schema({
   noteid: {type: ObjectId, ref: 'Note'},
-  formUserid: {type: ObjectId, ref: 'User'},
+  fromUserid: {type: ObjectId, ref: 'User'},
   reply: [{
     fromUserid: {type: ObjectId, ref: 'User'},
     toUserid: {type: ObjectId, ref: 'User'},

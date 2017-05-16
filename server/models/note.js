@@ -8,7 +8,8 @@ let noteSchema = new Schema({
   date: {type: String, required: true},
   pv: {type: Number},
   authorid: Schema.Types.ObjectId,
-  author:{type: String}
+  author:{type: String},
+  commentCnt: {type: Number}      // 留言条数
 });
 
 let Note = mongoose.model('Note', noteSchema);
@@ -17,5 +18,8 @@ Note.incPv = function (noteid) {
   return Note.updateOne({_id: noteid}, {$inc: {pv: 1}})
 }
 
+Note.incCommentCnt = function (noteid) {
+  return Note.updateOne({_id: noteid}, {$inc: {commentCnt: 1}})
+}
 module.exports = Note;
 

@@ -3,6 +3,7 @@
 import { combineReducers } from 'redux';
 import { INIT_NOTES, ADD_NOTE, DELETE_NOTE, FIND_ONE, USER_INIT_NOTES } from '../action/note.js';
 import { CREATE_USER, LOGIN_USER, LOGOUT_USER } from '../action/user.js'
+import { ADD_COMMENT, FIND_COMMENTS, CREATE_COMMENTINDEX, COVERT_COMMENTINDEX} from '../action/comment.js'
 
 //处理笔记初始化，添加和删除请求
 function notes(state = [], action) {
@@ -55,13 +56,36 @@ function findOneNote(state = null, action) {
   }
 }
 
+function comments (state = null, action) {
+  switch(action.type) {
+    case ADD_COMMENT:
+      return action.comments
+    case FIND_COMMENTS:
+      return action.comments
+    default:
+      return state
+  }
+}
+
+function commentIndexs (state = null, action) {
+  switch(action.type) {
+    case CREATE_COMMENTINDEX:
+      return action.commentIndexs
+    case COVERT_COMMENTINDEX:
+      return action.commentIndexs
+    default:
+      return state
+  }
+}
 
 const rootReducer = combineReducers({
   notes, 
   isCreated: createUser, 
   loginInfo: loginOrOut,
   note: findOneNote,
-  userNotes: userNotes
+  userNotes: userNotes,
+  comments: comments,
+  commentIndexs: commentIndexs
 });
 export default rootReducer;
 

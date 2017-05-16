@@ -28,7 +28,7 @@ class Notes_item extends React.Component{
           <span className="tag">
             <span>{ '作者:' + this.props.note.author }&nbsp;&nbsp;</span>
             <span className="tag-left">{ postDate }</span>
-            <span className="tag-right">浏览({ this.props.note.pv || 0 }){' '}留言({ 0 })</span> 
+            <span className="tag-right">浏览({ this.props.note.pv || 0 }){' '}留言({ this.props.note.commentCnt || 0})</span> 
             { deleteChoice }
           </span>
         </div>
@@ -38,4 +38,3 @@ class Notes_item extends React.Component{
 }
 
 export default Notes_item;
-//export default connect(mapStateToProps, mapDispatchToProps)(Notes_item)
